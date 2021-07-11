@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h1>Index</h1>
+<h3 sec:authorize="isAuthenticated()">반갑습니다. <span sec:authentication="name"></span>님!</h3>
+<hr>
+<a sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+<a sec:authorize="isAnonymous()" th:href="@{/user/signUp}">Sign up</a>
+</body>
+</html>
