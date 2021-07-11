@@ -1,2 +1,2 @@
 # Server Monitoring
-> Monitor CPU usage, memory usage, etc. on the server.
+> Monitor CPU usage, memory usage, etc. of the server.
