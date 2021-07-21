@@ -19,21 +19,21 @@ public class UserController {
         return "/home/index";
     }
 
-    @GetMapping("/user/signUp")
+    @GetMapping("/signUp")
     public String signUp(Model model) {
         model.addAttribute("userDto", new UserDto());
 
         return "/user/signUp";
     }
 
-    @PostMapping("/user/signUp")
+    @PostMapping("/signUp")
     public String signUp(UserDto userDto) {
         userService.createUser(userDto);
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 
-    @GetMapping("/user/login")
+    @GetMapping("/login")
     public String login() {
         return "/user/login";
     }

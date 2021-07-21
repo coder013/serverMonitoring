@@ -7,8 +7,8 @@
 <h1>Index</h1>
 <h3 sec:authorize="isAuthenticated()">반갑습니다. <span sec:authentication="name"></span>님!</h3>
 <hr>
-<a sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
-<a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
-<a sec:authorize="isAnonymous()" th:href="@{/user/signUp}">Sign up</a>
+<a sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+<a sec:authorize="isAnonymous()" th:href="@{/signUp}">Sign up</a>
 </body>
 </html>
