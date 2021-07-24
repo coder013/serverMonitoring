@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head include-html="/html/header.html">
+    <title>Main</title>
+</head>
+<body>
+    <h3><span sec:authentication="name"></span></h3>
+    <hr>
+    <a th:href="@{/logout}">Logout</a>
+
+    <script src="/js/includeHTML.js"></script>
+    <script>
+        includeHTML();
+    </script>
+</body>
+</html>
