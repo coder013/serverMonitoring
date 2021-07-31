@@ -10,6 +10,7 @@ public class DataCollector implements Runnable {
         try {
             OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
             File cDrive = new File("C:");
+
             Integer unitGB = 1024 * 1024 * 1024;
 
             while (true) {
@@ -24,6 +25,7 @@ public class DataCollector implements Runnable {
                 Thread.sleep(1000);
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
