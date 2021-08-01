@@ -1,7 +1,7 @@
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class DataSender implements Runnable {
+public class DataRespondent implements Runnable {
 
     private ServerSocket serverSocket;
     private Socket socket;

@@ -1,7 +1,9 @@
 import com.sun.management.OperatingSystemMXBean;
+import vo.DataVo;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;
+import java.sql.Timestamp;
 
 public class DataCollector implements Runnable {
 
@@ -14,13 +16,19 @@ public class DataCollector implements Runnable {
             Integer unitGB = 1024 * 1024 * 1024;
 
             while (true) {
+                DataVo vo = new DataVo(new Timestamp(System.currentTimeMillis()), osBean.getCpuLoad(), osBean.getTotalMemorySize(), osBean.getFreeMemorySize(), cDrive.getTotalSpace(), cDrive.getUsableSpace());
+                if (Agent.dataQueue.size() >= 100) {
+                    Agent.dataQueue.poll();
+                }
+                Agent.dataQueue.offer(vo);
+                // Add data about server
+
                 System.out.println("====================");
-                System.out.printf("CPU Usage : %.2f %%%n", osBean.getCpuLoad() * 100);
-                System.out.printf("Total Memory : %.2f GB%n", (double) osBean.getTotalMemorySize() / unitGB);
-                System.out.printf("Free Memory : %.2f GB%n", (double) osBean.getFreeMemorySize() / unitGB);
-                System.out.printf("Total Space : %.2f GB%n", (double) cDrive.getTotalSpace() / unitGB);
-                System.out.printf("Free Space : %.2f GB%n", (double) cDrive.getFreeSpace() / unitGB);
-                System.out.printf("Usable Space : %.2f GB%n", (double) cDrive.getUsableSpace() / unitGB);
+                System.out.printf("CPU Usage : %.2f %%%n", vo.getCpuUsage() * 100);
+                System.out.printf("Total Memory : %.2f GB%n", (double) vo.getTotalMemory() / unitGB);
+                System.out.printf("Free Memory : %.2f GB%n", (double) vo.getFreeMemory() / unitGB);
+                System.out.printf("Total Space : %.2f GB%n", (double) vo.getTotalSpace() / unitGB);
+                System.out.printf("Usable Space : %.2f GB%n", (double) vo.getUsableSpace() / unitGB);
 
                 Thread.sleep(1000);
             }

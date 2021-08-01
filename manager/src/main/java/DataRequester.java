@@ -1,4 +1,4 @@
-public class StatusChecker implements Runnable {
+public class DataRequester implements Runnable {
 
     @Override
     public void run() {
@@ -8,9 +8,9 @@ public class StatusChecker implements Runnable {
                 Integer port = 4432;
                 // Get IP & Port list from database
 
-                Runnable sct = new StatusCheckThread(ip, port);
-                Thread statusCheckThread = new Thread(sct);
-                statusCheckThread.start();
+                Runnable drt = new DataRequesterThread(ip, port);
+                Thread dataRequesterThread = new Thread(drt);
+                dataRequesterThread.start();
 
                 Thread.sleep(10000);
             }

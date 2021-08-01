@@ -2,10 +2,10 @@ public class Manager {
 
     public static void main(String[] args) {
         try {
-            Runnable sc = new StatusChecker();
-            Thread statusChecker = new Thread(sc);
+            Runnable dr = new DataRequester();
+            Thread dataRequester = new Thread(dr);
 
-            statusChecker.start();
+            dataRequester.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

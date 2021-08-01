@@ -2,13 +2,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-public class StatusCheckThread implements Runnable {
+public class DataRequesterThread implements Runnable {
 
     private Socket socket;
     private String ip;
     private Integer port;
 
-    public StatusCheckThread(String ip, Integer port) {
+    public DataRequesterThread(String ip, Integer port) {
         this.ip = ip;
         this.port = port;
     }
