@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,6 +16,11 @@ public class DataRespondent implements Runnable {
 
             while (true) {
                 socket = serverSocket.accept();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                // PrintWriter writer = new PrintWriter(socket.getOutputStream());
+
+                System.out.println(reader.readLine());
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
