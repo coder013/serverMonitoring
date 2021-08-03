@@ -1,21 +1,23 @@
+import vo.AgentVo;
 import vo.DataVo;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.net.InetAddress;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Agent {
 
-    static Queue<DataVo> dataQueue = new LinkedList<>();
+    static AgentVo agentVo;
+    static BlockingQueue<DataVo> dataQueue = new LinkedBlockingQueue<>(10);
 
     public static void main(String[] args) {
         try {
-            Runnable dc = new DataCollector();
-            Runnable dr = new DataRespondent();
-            Thread dataCollector = new Thread(dc);
-            Thread dataRespondent = new Thread(dr);
+            agentVo = new AgentVo(InetAddress.getLocalHost().getHostAddress(), 10119);
+            // Get agent info from file
 
-            dataCollector.start();
-            dataRespondent.start();
+            Thread connectionWaiter = new Thread(new ConnectionWaiter());
+
+            connectionWaiter.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

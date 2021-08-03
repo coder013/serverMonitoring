@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ManagerVo {
+public class AgentVo {
 
     private String ip;
     private Integer port;

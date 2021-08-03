@@ -17,11 +17,9 @@ public class DataCollector implements Runnable {
 
             while (true) {
                 DataVo vo = new DataVo(new Timestamp(System.currentTimeMillis()), osBean.getCpuLoad(), osBean.getTotalMemorySize(), osBean.getFreeMemorySize(), cDrive.getTotalSpace(), cDrive.getUsableSpace());
-                if (Agent.dataQueue.size() >= 100) {
-                    Agent.dataQueue.poll();
-                }
-                Agent.dataQueue.offer(vo);
-                // Add data about server
+
+                Agent.dataQueue.add(vo);
+                // Add data
 
                 System.out.println("====================");
                 System.out.printf("CPU Usage : %.2f %%%n", vo.getCpuUsage() * 100);
@@ -33,7 +31,9 @@ public class DataCollector implements Runnable {
                 Thread.sleep(1000);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Agent.dataQueue.clear();
+            Thread connectionWaiter = new Thread(new ConnectionWaiter());
+            connectionWaiter.start();
         }
     }
 }

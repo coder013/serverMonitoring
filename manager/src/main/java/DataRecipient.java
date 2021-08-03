@@ -1,10 +1,9 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class DataRespondent implements Runnable {
+public class DataRecipient implements Runnable {
 
     private ServerSocket serverSocket;
     private Socket socket;
@@ -12,13 +11,12 @@ public class DataRespondent implements Runnable {
     @Override
     public void run() {
         try {
-            serverSocket = new ServerSocket(4432);
+            serverSocket = new ServerSocket(Manager.managerVo.getPort());
 
             while (true) {
                 socket = serverSocket.accept();
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                // PrintWriter writer = new PrintWriter(socket.getOutputStream());
 
                 System.out.println(reader.readLine());
             }
@@ -26,6 +24,7 @@ public class DataRespondent implements Runnable {
             System.out.println(e.getMessage());
         } finally {
             try {
+                if (serverSocket != null) { serverSocket.close(); }
                 if (socket != null) { socket.close(); }
             } catch (Exception e) { }
         }
