@@ -1,14 +1,15 @@
+import vo.AgentVo;
+
 public class AgentConnectionChecker implements Runnable {
 
     @Override
     public void run() {
         try {
             while (true) {
-                String ip = "127.0.0.1";
-                Integer port = 10119;
+                AgentVo agentVo = new AgentVo("127.0.0.1", 10119);
                 // Get agent list from database
 
-                Thread agentConnectionCheckThread = new Thread(new AgentConnectionCheckThread(ip, port));
+                Thread agentConnectionCheckThread = new Thread(new AgentConnectionCheckThread(agentVo));
                 agentConnectionCheckThread.start();
 
                 Thread.sleep(10000);

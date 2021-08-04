@@ -1,7 +1,12 @@
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import vo.ManagerVo;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
 
 public class ConnectionWaiter implements Runnable {
 
@@ -15,14 +20,17 @@ public class ConnectionWaiter implements Runnable {
             socket = serverSocket.accept();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            ManagerVo managerVo = new Gson().fromJson(reader.readLine(), ManagerVo.class);
 
-            System.out.println(reader.readLine());
+            System.out.println("==========================");
+            System.out.println("Agent <= Manager : ConnectionWaiter");
+            System.out.println("Manager Info - IP : " + managerVo.getIp() + ", Port : " + managerVo.getPort());
 
             Thread dataCollector = new Thread(new DataCollector());
-            // Thread dataSender = new Thread(new DataSender());
+            Thread dataSender = new Thread(new DataSender(managerVo));
 
             dataCollector.start();
-            // dataSender.start();
+            dataSender.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
