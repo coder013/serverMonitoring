@@ -8,16 +8,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Agent {
 
     static AgentVo agentVo;
-    static BlockingQueue<DataVo> dataQueue = new LinkedBlockingQueue<>(10);
+    static boolean isConnected = false;
+    static BlockingQueue<DataVo> dataQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args) {
         try {
             agentVo = new AgentVo(InetAddress.getLocalHost().getHostAddress(), 10119);
             // Get agent info from file
 
-            Thread connectionWaiter = new Thread(new ConnectionWaiter());
-
-            connectionWaiter.start();
+            Thread managerConnectionWaiter = new Thread(new ManagerConnectionWaiter());
+            managerConnectionWaiter.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

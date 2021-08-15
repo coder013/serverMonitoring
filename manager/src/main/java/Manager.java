@@ -12,10 +12,7 @@ public class Manager {
             // Get manager info from file
 
             Thread agentConnectionChecker = new Thread(new AgentConnectionChecker());
-            Thread dataRecipient = new Thread(new DataRecipient());
-
             agentConnectionChecker.start();
-            dataRecipient.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
