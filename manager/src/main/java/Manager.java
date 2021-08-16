@@ -1,6 +1,8 @@
 import vo.ManagerVo;
 
+import java.io.InputStream;
 import java.net.InetAddress;
+import java.util.Properties;
 
 public class Manager {
 
@@ -8,7 +10,11 @@ public class Manager {
 
     public static void main(String[] args) {
         try {
-            managerVo = new ManagerVo(InetAddress.getLocalHost().getHostAddress(), 10118);
+            InputStream inputStream = Manager.class.getClassLoader().getResourceAsStream("manager.properties");
+            Properties properties = new Properties();
+            properties.load(inputStream);
+
+            managerVo = new ManagerVo(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(properties.getProperty("port")));
             // Get manager info from file
 
             Thread agentConnectionChecker = new Thread(new AgentConnectionChecker());

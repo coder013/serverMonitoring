@@ -1,4 +1,4 @@
- import vo.AgentVo;
+import vo.AgentVo;
 
 public class AgentConnectionChecker implements Runnable {
 

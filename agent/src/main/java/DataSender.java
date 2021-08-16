@@ -26,7 +26,7 @@ public class DataSender implements Runnable {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream());
 
-            while (true) {
+            while (!socket.isClosed()) {
                 System.out.println("==========================");
                 System.out.println("Agent => Manager : DataSender");
                 writer.println(new Gson().toJson(Agent.dataQueue.take()));
@@ -40,7 +40,6 @@ public class DataSender implements Runnable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            Agent.isConnected = false;
             try {
                 if (reader != null) { reader.close(); }
                 if (writer != null) { writer.close(); }

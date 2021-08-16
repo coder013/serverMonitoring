@@ -10,9 +10,7 @@ public class ManagerConnectionWaiter implements Runnable {
             Socket socket = serverSocket.accept();
             socket.setSoTimeout(10000);
 
-            Agent.isConnected = true;
-
-            Thread dataCollector = new Thread(new DataCollector());
+            Thread dataCollector = new Thread(new DataCollector(serverSocket, socket));
             Thread dataSender = new Thread(new DataSender(serverSocket, socket));
 
             dataCollector.start();

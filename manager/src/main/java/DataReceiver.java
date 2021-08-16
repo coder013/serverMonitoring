@@ -1,4 +1,6 @@
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vo.DataVo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -24,7 +26,16 @@ public class DataReceiver implements Runnable {
             while (true) {
                 System.out.println("==========================");
                 System.out.println("Manager <= Agent : DataReceiver");
-                System.out.println("Data : " + reader.readLine());
+
+                DataVo dataVo = new Gson().fromJson(reader.readLine(), DataVo.class);
+                Integer unitGB = 1024 * 1024 * 1024;
+
+                System.out.print("Date : " + dataVo.getDate());
+                System.out.printf(",  CPU Usage : %.2f %%", dataVo.getCpuUsage() * 100);
+                System.out.printf(",  Total Memory : %.2f GB", (double) dataVo.getTotalMemory() / unitGB);
+                System.out.printf(",  Free Memory : %.2f GB", (double) dataVo.getFreeMemory() / unitGB);
+                System.out.printf(",  Total Space : %.2f GB", (double) dataVo.getTotalSpace() / unitGB);
+                System.out.printf(",  Usable Space : %.2f GB%n", (double) dataVo.getUsableSpace() / unitGB);
 
                 System.out.println("==========================");
                 System.out.println("Manager => Agent : DataReceiver");
