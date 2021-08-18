@@ -28,7 +28,7 @@ public class DataReceiver implements Runnable {
                 System.out.println("Manager <= Agent : DataReceiver");
 
                 DataVo dataVo = new Gson().fromJson(reader.readLine(), DataVo.class);
-                Integer unitGB = 1024 * 1024 * 1024;
+                int unitGB = 1024 * 1024 * 1024;
 
                 System.out.print("Date : " + dataVo.getDate());
                 System.out.printf(",  CPU Usage : %.2f %%", dataVo.getCpuUsage() * 100);

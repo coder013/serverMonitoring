@@ -19,6 +19,9 @@ public class Manager {
 
             Thread agentConnectionChecker = new Thread(new AgentConnectionChecker());
             agentConnectionChecker.start();
+
+            Thread dataProcessor = new Thread(new DataProcessor());
+            dataProcessor.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
