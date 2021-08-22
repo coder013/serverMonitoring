@@ -9,6 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AgentVo {
 
+    private Integer id;
+    private String agentName;
     private String ip;
     private Integer port;
 }

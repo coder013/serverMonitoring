@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper">
+	<select id="selectAgentList" parameterType="dto.AgentDto" resultType="vo.AgentVo">
+		select	a.id			as id
+				,a.agent_name	as agentName
+				,a.ip			as ip
+				,a.port			as port
+		from agent a
+		inner join manager_agent_map	ma on a.id = ma.agent_id
+		inner join manager				m on ma.manager_id = m.id
+		where 1 = 1
+		<if test="managerIp != null">
+			and m.ip = #{managerIp}
+		</if>
+		<if test="managerPort != null">
+			and m.port = #{managerPort}
+		</if>
+	</select>
+
+	<select id="selectTableCount" parameterType="String" resultType="int">
+		select	count(*)
+		from Information_schema.tables
+		where table_schema = 'serverMonitoring'
+		and table_name = 'agent_log_${value}';
+	</select>
+</mapper>
