@@ -1,5 +1,7 @@
+import enums.TableEnum;
 import mapper.TableMapper;
 import org.apache.ibatis.session.SqlSession;
+import sql.AgentLogSQL;
 import util.SqlSessionFactoryUtil;
 
 import java.text.SimpleDateFormat;
@@ -9,6 +11,8 @@ public class DataProcessor implements Runnable {
 
     SqlSessionFactoryUtil sqlSessionFactoryUtil = new SqlSessionFactoryUtil();
 
+    AgentLogSQL agentLogSQL = new AgentLogSQL();
+
     TableMapper tableMapper = new TableMapper();
 
     @Override
@@ -16,8 +20,12 @@ public class DataProcessor implements Runnable {
         SqlSession session = sqlSessionFactoryUtil.getSqlSession();
 
         try {
-            if (tableMapper.selectTableCount(session, new SimpleDateFormat("yyyyMMdd").format(new Date())) == 0) {
-                // create table
+            String tableName = TableEnum.AGENT_LOG.getName() + new SimpleDateFormat("yyyyMMdd").format(new Date());
+
+            if (tableMapper.selectTableCount(session, tableName) == 0) {
+                String sql = agentLogSQL.getCreateAgentLog().replace("{tableName}", tableName);
+
+                tableMapper.createTable(session, sql);
             }
             // data processing
         } catch (Exception e) {
