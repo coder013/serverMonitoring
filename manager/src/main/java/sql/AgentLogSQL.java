@@ -6,8 +6,8 @@ import lombok.Getter;
 public class AgentLogSQL {
 
     private final String createAgentLog = "create table {tableName} (" +
-            "date           timestamp not null," +
-            "agent_id       integer not null," +
+            "date           timestamp," +
+            "agent_id       integer," +
             "cpu_usage      long not null," +
             "total_memory   long not null," +
             "free_memory    long not null," +
