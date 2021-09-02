@@ -6,7 +6,7 @@ public class ManagerConnectionWaiter implements Runnable {
     @Override
     public void run() {
         try {
-            ServerSocket serverSocket = new ServerSocket(Agent.agentVo.getPort());
+            ServerSocket serverSocket = new ServerSocket(Agent.agentPort);
             Socket socket = serverSocket.accept();
             socket.setSoTimeout(10000);
 

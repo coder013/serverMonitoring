@@ -1,6 +1,5 @@
-package vo;
+package dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +7,10 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class DataVo {
+public class DataDto {
 
     private Timestamp date;
+    private Integer id;
     private double cpuUsage;
     private long totalMemory;
     private long freeMemory;

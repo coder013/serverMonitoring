@@ -18,7 +18,7 @@ public class AgentConnectionCheckThread implements Runnable {
             socket.connect(new InetSocketAddress(agentVo.getIp(), agentVo.getPort()), 10000);
             socket.setSoTimeout(10000);
 
-            Thread dataReceiver = new Thread(new DataReceiver(socket));
+            Thread dataReceiver = new Thread(new DataReceiver(agentVo, socket));
             dataReceiver.start();
         } catch (Exception e) {
             System.out.println(e.getMessage());

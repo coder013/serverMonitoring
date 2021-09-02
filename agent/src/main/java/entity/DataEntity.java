@@ -1,4 +1,4 @@
-package vo;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DataVo {
+public class DataEntity {
 
     private Timestamp date;
     private double cpuUsage;

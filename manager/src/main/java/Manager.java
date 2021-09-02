@@ -1,12 +1,16 @@
-import vo.ManagerVo;
+import dto.DataDto;
 
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.Properties;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Manager {
 
-    static ManagerVo managerVo;
+    static String managerIp;
+    static Integer managerPort;
+    static BlockingQueue<DataDto> dataQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args) {
         try {
@@ -14,7 +18,8 @@ public class Manager {
             Properties properties = new Properties();
             properties.load(inputStream);
 
-            managerVo = new ManagerVo(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(properties.getProperty("port")));
+            managerIp = InetAddress.getLocalHost().getHostAddress();
+            managerPort = Integer.parseInt(properties.getProperty("port"));
             // Get manager info from file
 
             Thread agentConnectionChecker = new Thread(new AgentConnectionChecker());

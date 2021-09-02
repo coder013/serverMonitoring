@@ -17,8 +17,8 @@ public class AgentConnectionChecker implements Runnable {
         try {
             while (true) {
                 AgentDto agentDto = new AgentDto();
-                agentDto.setManagerIp(Manager.managerVo.getIp());
-                agentDto.setManagerPort(Manager.managerVo.getPort());
+                agentDto.setManagerIp(Manager.managerIp);
+                agentDto.setManagerPort(Manager.managerPort);
 
                 for (AgentVo agentVo : agentMapper.selectAgentList(session, agentDto)) {
                     Thread agentConnectionCheckThread = new Thread(new AgentConnectionCheckThread(agentVo));

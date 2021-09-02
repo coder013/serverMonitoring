@@ -10,8 +10,9 @@ import java.net.Socket;
 
 public class DataSender implements Runnable {
 
-    final private ServerSocket serverSocket;
-    final private Socket socket;
+    private final ServerSocket serverSocket;
+    private final Socket socket;
+
     private BufferedReader reader;
     private PrintWriter writer;
 
@@ -27,15 +28,19 @@ public class DataSender implements Runnable {
             writer = new PrintWriter(socket.getOutputStream());
 
             while (!socket.isClosed()) {
-                System.out.println("==========================");
-                System.out.println("Agent => Manager : DataSender");
                 writer.println(new Gson().toJson(Agent.dataQueue.take()));
                 writer.flush();
 
                 System.out.println("==========================");
-                System.out.println("Agent <= Manager : DataSender");
+                System.out.println("Agent => Manager : DataSender");
+                // Send data to manager
+
                 JsonObject jsonObject = JsonParser.parseString(reader.readLine()).getAsJsonObject();
+
+                System.out.println("==========================");
+                System.out.println("Agent <= Manager : DataSender");
                 System.out.println("Connection : " + jsonObject.get("connection"));
+                // Receive connection status from manager
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

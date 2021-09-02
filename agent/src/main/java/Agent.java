@@ -1,5 +1,4 @@
-import vo.AgentVo;
-import vo.DataVo;
+import entity.DataEntity;
 
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -9,8 +8,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Agent {
 
-    static AgentVo agentVo;
-    static BlockingQueue<DataVo> dataQueue = new LinkedBlockingQueue<>();
+    static String agentIp;
+    static Integer agentPort;
+    static BlockingQueue<DataEntity> dataQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args) {
         try {
@@ -18,7 +18,8 @@ public class Agent {
             Properties properties = new Properties();
             properties.load(inputStream);
 
-            agentVo = new AgentVo(InetAddress.getLocalHost().getHostAddress(), Integer.parseInt(properties.getProperty("port")));
+            agentIp = InetAddress.getLocalHost().getHostAddress();
+            agentPort = Integer.parseInt(properties.getProperty("port"));
             // Get agent info from file
 
             Thread managerConnectionWaiter = new Thread(new ManagerConnectionWaiter());
