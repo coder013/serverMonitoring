@@ -1,7 +1,8 @@
 import enums.TableEnum;
+import mapper.DataMapper;
 import mapper.TableMapper;
 import org.apache.ibatis.session.SqlSession;
-import sql.AgentLogSQL;
+import sql.DataSQL;
 import util.SqlSessionFactoryUtil;
 
 import java.text.SimpleDateFormat;
@@ -11,23 +12,33 @@ public class DataProcessor implements Runnable {
 
     SqlSessionFactoryUtil sqlSessionFactoryUtil = new SqlSessionFactoryUtil();
 
-    AgentLogSQL agentLogSQL = new AgentLogSQL();
+    DataSQL dataSQL = new DataSQL();
 
     TableMapper tableMapper = new TableMapper();
+    DataMapper dataMapper = new DataMapper();
 
     @Override
     public void run() {
         SqlSession session = sqlSessionFactoryUtil.getSqlSession();
 
         try {
-            String tableName = TableEnum.AGENT_LOG.getName() + new SimpleDateFormat("yyyyMMdd").format(new Date());
+            while (true) {
+                if (Manager.dataQueue.size() > 0) {
+                    String tableName = TableEnum.Data.getName() + new SimpleDateFormat("yyyyMMdd").format(new Date());
 
-            if (tableMapper.selectTableCount(session, tableName) == 0) {
-                String sql = agentLogSQL.getCreateAgentLog().replace("{tableName}", tableName);
+                    if (tableMapper.selectTableCount(session, tableName) == 0) {
+                        tableMapper.createTable(session, dataSQL.getCreateData().replace("{tableName}", tableName));
+                    }
 
-                tableMapper.createTable(session, sql);
+                    // dataMapper.insertData(session, );
+                    // dataQueue를 사용하여 Bulk insert 해야함.
+                    // 방법 1. Queue => List로 변경 후 동적 쿼리 작성
+                    // 방법 2. MyBatis forEach에서 Queue 사용 가능한지 확인, thread safety 한지도 확인
+                }
+                // Insert data
+
+                Thread.sleep(10000);
             }
-            // data processing
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {

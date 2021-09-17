@@ -3,9 +3,9 @@ package sql;
 import lombok.Getter;
 
 @Getter
-public class AgentLogSQL {
+public class DataSQL {
 
-    private final String createAgentLog = "create table {tableName} (" +
+    private final String createData = "create table {tableName} (" +
             "date           timestamp," +
             "agent_id       integer," +
             "cpu_usage      long not null," +

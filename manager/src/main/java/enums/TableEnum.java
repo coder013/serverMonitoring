@@ -2,7 +2,7 @@ package enums;
 
 public enum TableEnum {
 
-    AGENT_LOG("agent_log_");
+    Data("data_");
 
     private final String name;
 
