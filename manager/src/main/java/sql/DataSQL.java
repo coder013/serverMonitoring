@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class DataSQL {
 
-    private final String createData = "create table {tableName} (" +
+    private final String createDataTable = "create table {tableName} (" +
             "date           timestamp," +
             "agent_id       integer," +
             "cpu_usage      long not null," +

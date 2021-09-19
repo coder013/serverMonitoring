@@ -10,10 +10,13 @@ import java.sql.Timestamp;
 public class DataDto {
 
     private Timestamp date;
-    private Integer id;
+    private Integer agentId;
     private double cpuUsage;
     private long totalMemory;
     private long freeMemory;
     private long totalSpace;
     private long usableSpace;
+
+    private String tableName;
+    private String strDataList;
 }

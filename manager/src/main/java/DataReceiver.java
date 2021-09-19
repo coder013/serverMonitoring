@@ -34,11 +34,11 @@ public class DataReceiver implements Runnable {
                 System.out.println("==========================");
                 System.out.println("Manager <= Agent : DataReceiver");
 
-                dataDto.setId(agentVo.getId());
+                dataDto.setAgentId(agentVo.getId());
                 Manager.dataQueue.add(dataDto);
 
                 System.out.print("Date : " + dataDto.getDate());
-                System.out.print(",  Agent ID : " + dataDto.getId());
+                System.out.print(",  Agent ID : " + dataDto.getAgentId());
                 System.out.printf(",  CPU Usage : %.2f %%", dataDto.getCpuUsage() * 100);
                 System.out.printf(",  Total Memory : %.2f GB", (double) dataDto.getTotalMemory() / unitGB);
                 System.out.printf(",  Free Memory : %.2f GB", (double) dataDto.getFreeMemory() / unitGB);

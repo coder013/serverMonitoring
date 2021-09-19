@@ -1,3 +1,4 @@
+import dto.DataDto;
 import enums.TableEnum;
 import mapper.DataMapper;
 import mapper.TableMapper;
@@ -27,10 +28,33 @@ public class DataProcessor implements Runnable {
                     String tableName = TableEnum.Data.getName() + new SimpleDateFormat("yyyyMMdd").format(new Date());
 
                     if (tableMapper.selectTableCount(session, tableName) == 0) {
-                        tableMapper.createTable(session, dataSQL.getCreateData().replace("{tableName}", tableName));
+                        tableMapper.createTable(session, dataSQL.getCreateDataTable().replace("{tableName}", tableName));
                     }
 
-                    // dataMapper.insertData(session, );
+                    String strDataList = "";
+
+                    while (Manager.dataQueue.isEmpty() == false) {
+                        DataDto dto = Manager.dataQueue.poll();
+
+                        if (strDataList.length() > 0) {
+                            strDataList += ",";
+                        }
+                        strDataList += "("
+                                + "'" + dto.getDate() + "'" + ","
+                                + dto.getAgentId() + ","
+                                + dto.getCpuUsage() + ","
+                                + dto.getTotalMemory() + ","
+                                + dto.getFreeMemory() + ","
+                                + dto.getTotalSpace() + ","
+                                + dto.getUsableSpace()
+                                + ")";
+                    }
+
+                    DataDto dataDto = new DataDto();
+                    dataDto.setTableName(tableName);
+                    dataDto.setStrDataList(strDataList);
+
+                    dataMapper.insertData(session, dataDto);
                     // dataQueue를 사용하여 Bulk insert 해야함.
                     // 방법 1. Queue => List로 변경 후 동적 쿼리 작성
                     // 방법 2. MyBatis forEach에서 Queue 사용 가능한지 확인, thread safety 한지도 확인

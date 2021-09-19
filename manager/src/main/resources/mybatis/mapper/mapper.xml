@@ -30,4 +30,8 @@
 	<select id="createTable" parameterType="java.lang.String" resultType="int">
 		${value}
 	</select>
+
+	<insert id="insertData" parameterType="dto.DataDto">
+		insert into ${tableName}(date, agent_id, cpu_usage, total_memory, free_memory, total_space, usable_space) values ${strDataList};
+	</insert>
 </mapper>
