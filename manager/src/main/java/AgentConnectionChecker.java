@@ -12,10 +12,12 @@ public class AgentConnectionChecker implements Runnable {
 
     @Override
     public void run() {
-        SqlSession session = sqlSessionFactoryUtil.getSqlSession();
+        SqlSession session = null;
 
-        try {
-            while (true) {
+        while (true) {
+            try {
+                session = sqlSessionFactoryUtil.getSqlSession();
+
                 AgentDto agentDto = new AgentDto();
                 agentDto.setManagerIp(Manager.managerIp);
                 agentDto.setManagerPort(Manager.managerPort);
@@ -25,13 +27,12 @@ public class AgentConnectionChecker implements Runnable {
                     agentConnectionCheckThread.start();
                 }
                 // Get agent list from database
-
-                Thread.sleep(10000);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                if (session != null) { session.close(); }
+                try { Thread.sleep(10000); } catch (Exception e) {}
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (session != null) { session.close(); }
         }
     }
 }
