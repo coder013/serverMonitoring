@@ -28,9 +28,11 @@ public class UserController {
 
     @PostMapping("/signUp")
     public String signUp(UserDto userDto) {
-        userService.createUser(userDto);
-
-        return "redirect:/login";
+        if (userService.createUser(userDto)) {
+            return "redirect:/login";
+        } else {
+            return "redirect:/signUp";
+        }
     }
 
     @GetMapping("/login")

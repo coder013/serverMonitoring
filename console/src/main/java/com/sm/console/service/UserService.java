@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,17 +24,23 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Transactional
-    public Integer createUser(UserDto userDto) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    public boolean createUser(UserDto userDto) {
+        User user = userRepository.findByLoginId(userDto.getLoginId());
 
-        return userRepository.save(userDto.toEntity()).getId();
+        if (user == null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            userRepository.save(userDto.toEntity());
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userWrapper = userRepository.findByLoginId(username);
-        User user = userWrapper.get();
+        User user = userRepository.findByLoginId(username);
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
