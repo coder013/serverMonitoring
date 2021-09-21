@@ -1,7 +1,7 @@
 package com.sm.console.dto;
 
 import com.sm.console.entity.User;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private Integer id;
@@ -21,12 +22,5 @@ public class UserDto {
                 .loginId(loginId)
                 .password(password)
                 .build();
-    }
-
-    @Builder
-    public UserDto(Integer id, String loginId, String password) {
-        this.id = id;
-        this.loginId = loginId;
-        this.password = password;
     }
 }

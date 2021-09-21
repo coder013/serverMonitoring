@@ -1,6 +1,6 @@
 package com.sm.console.config;
 
-import com.sm.console.enums.Role;
+import com.sm.console.enums.RoleEnum;
 import com.sm.console.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/", "/management/**").hasAnyAuthority(Role.ADMIN.getValue(), Role.USER.getValue())
+                    .antMatchers("/", "/management/**").hasAnyAuthority(RoleEnum.ADMIN.getValue(), RoleEnum.USER.getValue())
                     .antMatchers("/**").permitAll()
                     .and()
                 .formLogin()

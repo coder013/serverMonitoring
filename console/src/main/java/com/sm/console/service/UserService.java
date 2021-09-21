@@ -2,7 +2,7 @@ package com.sm.console.service;
 
 import com.sm.console.dto.UserDto;
 import com.sm.console.entity.User;
-import com.sm.console.enums.Role;
+import com.sm.console.enums.RoleEnum;
 import com.sm.console.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,9 +40,9 @@ public class UserService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (username.equals("admin")) {
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+            authorities.add(new SimpleGrantedAuthority(RoleEnum.ADMIN.getValue()));
         } else {
-            authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
+            authorities.add(new SimpleGrantedAuthority(RoleEnum.USER.getValue()));
         }
 
         return new org.springframework.security.core.userdetails.User(user.getLoginId(), user.getPassword(), authorities);
