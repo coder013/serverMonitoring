@@ -20,7 +20,7 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <img class="mt-4 mb-4" src="/img/icon_sign_up.svg" alt="" width="300" height="300">
             <div class="form-floating">
-                <input type="text" class="form-control" id="username" name="username" th:field="*{loginId}" placeholder="ID">
+                <input type="text" class="form-control" id="username" name="username" th:field="*{loginId}" th:value="${userDto.loginId}" placeholder="ID">
                 <label for="username">ID</label>
             </div>
             <div class="form-floating">
