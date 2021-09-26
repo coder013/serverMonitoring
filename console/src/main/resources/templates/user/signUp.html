@@ -24,7 +24,7 @@
                 <label for="username">ID</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="password" name="password" th:field="*{password}" placeholder="Password">
+                <input type="password" class="form-control" id="password" name="password" th:field="*{password}" th:value="${userDto.password}" placeholder="Password">
                 <label for="password">Password</label>
             </div>
             <button class="btn btn-lg btn-primary w-100" type="submit">Sign Up</button>
