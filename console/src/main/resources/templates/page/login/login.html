@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head include-html="/html/header.html">
+<head>
+    <th:block th:replace="fragments/head :: headFragment"></th:block>
     <title>Login</title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
@@ -30,10 +31,5 @@
             <button class="btn btn-lg btn-primary w-100" type="submit">Login</button>
         </form>
     </main>
-
-    <script src="/js/includeHTML.js"></script>
-    <script>
-        includeHTML();
-    </script>
 </body>
 </html>

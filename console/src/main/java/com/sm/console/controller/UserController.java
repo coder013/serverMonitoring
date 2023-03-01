@@ -16,14 +16,14 @@ public class UserController {
 
     @GetMapping("/")
     public String main() {
-        return "/main";
+        return "/page/main";
     }
 
     @GetMapping("/signUp")
     public String signUp(Model model) {
         model.addAttribute("userDto", new UserDto());
 
-        return "/user/signUp";
+        return "/page/login/signUp";
     }
 
     @PostMapping("/signUp")
@@ -37,6 +37,6 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "/user/login";
+        return "/page/login/login";
     }
 }
